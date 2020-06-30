@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.crud.domain.Product;
+import com.example.crud.model.Product;
 import com.example.crud.repository.ProductRepository;
 
 @Service
@@ -23,11 +23,11 @@ public class ProductService {
 		productRepository.save(product);
 	}
 	
-	public Product get(long id) {
+	public Product get(int id) {
 		return productRepository.findById(id).get();
 	}
 	
-	public void delete(long id) {
+	public void delete(int id) {
 		productRepository.deleteById(id);
 	}
 
