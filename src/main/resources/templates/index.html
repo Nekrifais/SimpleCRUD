@@ -10,6 +10,25 @@
     <h1>Product List</h1>
     <a href="new">Create New Product</a>
     <br/><br/>
+    
+    
+    <div>
+    	<form th:action="@{/page/1}">
+    	
+    		Filter:
+    		<input type="text" name="keyword" required />
+    		&nbsp;
+    		<input type="submit" value="Serach" />
+    		&nbsp;
+    		<input type="button" value="Clear" />
+    		
+    	</form>
+    
+    
+    </div>
+    
+    
+    
     <table border="1" cellpadding="10">
         <thead>
             <tr>
@@ -32,6 +51,54 @@
             </tr>
         </tbody>
     </table>
+    
+    
+ 
+    
+<div>
+	Total Items: [[${totalItems}]] -
+	<br>
+	 Page [[${currentPage}]] of [[${totalPages}]]
+  
+  <a th:if="${currentPage > 1}" th:href="@{/page/1}">First</a>
+  <span th:unless="${currentPage > 1}">First</span>
+  
+  <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">Previous</a>
+  <span th:unless="${currentPage > 1}">Previous</span>
+  
+  
+  
+  <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+  	<a th:if="${i != currentPage}"  th:href="@{'/page/' + ${i} + ${keyword != null ? '?keyword=' + keyword : ''}}"><span>[[${i}]]</span></a>
+  	<span th:unless="${i != currentPage}"><span>[[${i}]]</span></span>
+  </span>
+  <!-- ${keyword != null ? '&keyword=' + keyword : ''}        '&keyword=' + ${keyword}-->
+   <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">Next</a>
+  <span th:unless="${currentPage < totalPages}">Next</span>
+  
+  
+  <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">Last</a>
+  <span th:unless="${currentPage < totalPages}">Last</span>
+   
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </div>    
 </body>
 </html>

@@ -3,8 +3,11 @@ package com.example.crud.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,7 @@ import com.example.crud.service.ProductService;
 
 @Controller
 public class ProductController {
+	
 	@Autowired
 	private ProductService service; 
 	
@@ -23,14 +27,34 @@ public class ProductController {
 		this.service = service;
 	}
 	
-	
 	@RequestMapping("/")
-	public String homePage(Model model) {
-		List<Product> listProducts = service.listAll();
+	public String viewHomePage(Model model) {
+		String keyword = "";
+		
+		return listByPage(model, 1, keyword);
+	}
+	
+	
+	@GetMapping("/page/{pageNumber}")
+	public String listByPage(Model model, 
+			@PathVariable("pageNumber") int currentPage, 
+			@Param("keyword") String keyword) {
+		// int currentPage = 1;
+		Page<Product> page = service.listAll(currentPage, keyword);
+		long totalItems = page.getTotalElements();
+		int totalPages = page.getTotalPages();
+		
+		List<Product> listProducts = page.getContent();
+		
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalItems", totalItems);
+		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("listProducts", listProducts);
+		model.addAttribute("keyword", keyword);
 		
 		return "index";
 	}
+	
 	
 	@RequestMapping("/new")
 	public String newProduct(Model model) {
