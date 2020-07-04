@@ -3,6 +3,9 @@ package com.example.crud.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.crud.model.Product;
@@ -13,11 +16,19 @@ public class ProductService {
 	
 	@Autowired
 	private ProductRepository productRepository;
-	
+	/*
 	public List<Product> listAll() {
 		return (List<Product>) productRepository.findAll();
-	}
+	} */
 	
+	public Page<Product> listAll( int pageNumber, String keyword) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, 5);
+		
+		if(keyword != null) {
+			return productRepository.findAll(keyword, pageable);
+		}
+		return productRepository.findAll(pageable);
+	}
 	
 	public void save(Product product) {
 		productRepository.save(product);
