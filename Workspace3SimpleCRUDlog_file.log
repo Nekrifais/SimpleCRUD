@@ -1,0 +1,5 @@
+2020-07-03 22:29:31 INFO  ProductService:42 - Product successfully saved. Product details: com.example.crud.model.Product@6d73eece
+2020-07-03 23:15:06 INFO  ProductService:42 - Product successfully saved. Product details: Product [id=22, name=qwerty, price=110.0]
+2020-07-08 11:32:09 INFO  ProductService:41 - Product successfully saved. Product details: Product [id=23, name=new, price=1.2341234E7]
+2020-07-08 11:32:09 INFO  ProductService:77 - Product successfully saved. Product details: Product [id=23, name=new, price=1.2341234E7]
+2020-07-08 13:07:14 INFO  ProductService:77 - Product successfully saved. Product details: Product [id=24, name=dfghdfgh, price=0.0]

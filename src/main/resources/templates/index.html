@@ -8,7 +8,7 @@
 <body>
 <div align="center">
     <h1>Product List</h1>
-    <a href="new">Create New Product</a>
+    <a href="/new">Create New Product</a>
     <br/><br/>
     
     
@@ -20,13 +20,18 @@
     		&nbsp;
     		<input type="submit" value="Serach" />
     		&nbsp;
-    		<input type="button" value="Clear" />
+    		<input type="button" value="Clear" onclick="clearFilter()" />
     		
     	</form>
     
     
     </div>
     
+    <script type"text/javascript">
+    function clearFilter(){
+    	window.location = "/";
+    }
+    </script>
     
     
     <table border="1" cellpadding="10">
@@ -81,22 +86,6 @@
   <span th:unless="${currentPage < totalPages}">Last</span>
    
 </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 </div>    
