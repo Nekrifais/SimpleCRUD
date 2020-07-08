@@ -2,6 +2,7 @@ package com.example.crud.controller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +20,8 @@ import com.example.crud.service.ProductService;
 
 @Controller
 public class ProductController {
+	
+	private static final Logger LOGGER = Logger.getLogger(ProductService.class);
 	
 	@Autowired
 	private ProductService service; 
@@ -39,7 +42,7 @@ public class ProductController {
 	public String listByPage(Model model, 
 			@PathVariable("pageNumber") int currentPage, 
 			@Param("keyword") String keyword) {
-		// int currentPage = 1;
+		
 		Page<Product> page = service.listAll(currentPage, keyword);
 		long totalItems = page.getTotalElements();
 		int totalPages = page.getTotalPages();
@@ -61,12 +64,17 @@ public class ProductController {
 		Product product = new Product();
 		model.addAttribute("product", product);
 		
+		
+		
 		return "new_product";
+
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("product") Product product) {
 		service.save(product);
+		
+		LOGGER.info("Product successfully saved. Product details: " + product);
 		
 		return "redirect:/";
 		
@@ -79,12 +87,17 @@ public class ProductController {
 		Product product = service.get(id);
 		mav.addObject("product", product);
 		
+		
+		
 		return mav;
+		
 	}
 	
 	@RequestMapping("/delete/{id}")
 	public String deleteProduct(@PathVariable(name = "id") int id) {
 		service.delete(id);
+		
+		
 		return "redirect:/";		
 	}
 }
