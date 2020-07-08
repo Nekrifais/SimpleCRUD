@@ -19,8 +19,9 @@
     <a href="/new">Create New Product</a>
     <br/><br/>
     
-    
-    <div>
+ <div class="container">
+  <div class="row">   
+    <div class="col-md-12">
     	<form class="form-inline text-center create" th:action="@{/page/1}">
     		<div class="form-group mx-sm-3 mb-2" >
     			Filter:
@@ -37,13 +38,13 @@
 
     
     
-    <table border="1" cellpadding="10">
+    <table class="table table-striped" border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>Product ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Actions</th>
+                <th scope="col">Product ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -63,7 +64,7 @@
     
  
     
-<div>
+<div class="col-md-12">
 	Total Items: [[${totalItems}]] -
 	<br>
 	 Page [[${currentPage}]] of [[${totalPages}]]
@@ -89,6 +90,11 @@
   <span th:unless="${currentPage < totalPages}">Last</span>
    
 </div>
+</div>
+</div>
+   
+   
+   
     
     
 </div>   
